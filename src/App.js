@@ -3,8 +3,10 @@ import logo from './logo.svg';
 import globalHook from 'use-global-hook';
 import actions from './actions.js'
 import MomentCard from './MomentCard.js'
+import MomentView from './MomentView.js'
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Redirect } from 'react-router-dom';
+import AppAppBar from './TempComponents/AppAppBar.js'
 import Login from './Login.js'
 import CreateMoment from './CreateMoment.js';
 import './App.css';
@@ -24,22 +26,16 @@ function App() {
         {/* Just a test to see if the route redirect works*/}
         {/*<Route exact path="/" render={() => <Redirect to='/main' />} />*/}
         <div className="App">
-            {globalState.signedIn ? <Redirect to='/main' /> :
-            <Redirect to="/login" />}
+            <AppAppBar globalState={globalState}/>
+            {globalState.signedIn ? <Redirect to='/main' /> : <div></div>
+            /*<Redirect to="/login" />*/}
             <Route exact path="/login" render={() => console.log("create login form")} />
 
-            <Route exact path="/login" render={() => <Login
+            <Route exact path="/sign-in" render={() => <Login
                 globalState={globalState} globalActions={globalActions}/>} />
             <Route exact path="/main" render={() => <div>
                 <header className="App-header">
-                  {Object.keys(moments_object).map((moment) => {
-                      return (
-                          <MomentCard key={moments_object[moment].message}
-                          globalActions={globalActions}
-                          moment={moments_object[moment]}/>
-                      )
-
-                  })}
+                  <MomentView moments_object={moments_object} globalActions={globalActions}/>
 
                   <CreateMoment globalState={globalState} globalActions={globalActions}/>
                   <img src={logo} className="App-logo" alt="logo" />

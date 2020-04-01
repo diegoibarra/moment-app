@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import loginActions from './loginActions.js'
 import globalHook from 'use-global-hook';
 import axios from 'axios';
+import SignUpForm from './signUpForm.js'
 import LoginForm from './LoginForm';
 
 //import modalStyle from "./assets/jss/material-dashboard-pro-react/modalStyle.js";
@@ -27,11 +28,27 @@ const initialState = {
     password: ''
 };
 
-const handleSubmit = (globalState, globalActions) => {
+const handleSignIn = (globalState, globalActions) => {
     console.log("Let's handle Submit")
     console.log(globalState)
     console.log(globalActions)
     axios.post('/api/login', globalState)
+    .then(resp => {
+        console.log(resp)
+      if (resp.data.success) {
+          console.log("Able to sign user in!")
+        globalActions.updateSignIn(globalState, resp.data.success);
+        /*axios.get('/api/account')
+        .then(res => this.props.updateUser(res.data.user))*/
+    } else console.log("Unable to sign user in")//this.setState({failedLoginAlert: true});
+    });
+}
+
+const handleSignUp = (globalState, globalActions) => {
+    console.log("Let's handle SignUp")
+    console.log(globalState)
+    console.log(globalActions)
+    axios.post('/api/signup', globalState)
     .then(resp => {
         console.log(resp)
       if (resp.data.success) {
@@ -53,8 +70,12 @@ export default function Login(props) {
   return (
     <div>
       {/*<LoginNavBar/>*/}
-       <LoginForm modalActions={modalActions} handleSubmit={() => handleSubmit(modalState, props.globalActions)}/>
-    </div>
+        {props.signIn ? <LoginForm modalActions={modalActions}
+        handleSubmit={() => handleSignIn(modalState, props.globalActions)}/> :
+        <SignUpForm modalActions={modalActions}
+        handleSignUp={() => handleSignUp(modalState, props.globalActions)}/>
+     }
+       </div>
 
   );
 }

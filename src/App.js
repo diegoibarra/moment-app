@@ -24,16 +24,17 @@ function App() {
   return (
       <BrowserRouter >
         {/* Just a test to see if the route redirect works*/}
-        {/*<Route exact path="/" render={() => <Redirect to='/main' />} />*/}
         <div className="App">
             <AppAppBar globalState={globalState}/>
             {globalState.signedIn ? <Redirect to='/main' /> : <div></div>
             /*<Redirect to="/login" />*/}
             <Route exact path="/login" render={() => console.log("create login form")} />
-
-            <Route exact path="/sign-in" render={() => <Login
+            <Route exact path="/sign-up" render={() => <Login signIn={false}
+            globalState={globalState} globalActions={globalActions}
+            />} />
+            <Route exact path="/sign-in" render={() => <Login signIn={true}
                 globalState={globalState} globalActions={globalActions}/>} />
-            <Route exact path="/main" render={() => <div>
+            <Route exact path="/main" render={() => globalState.signedIn ?
                 <header className="App-header">
                   <MomentView moments_object={moments_object} globalActions={globalActions}/>
 
@@ -50,9 +51,8 @@ function App() {
                   >
                     Learn React
                   </a>
-                </header>
-                </div>
-            } />
+                </header> : <div></div>
+            }/>
         </div>
     </BrowserRouter>
   );

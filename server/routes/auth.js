@@ -25,6 +25,16 @@ module.exports = (passport, axios, User) => {
     })(req, res, next);
   });
 
+  router.post('/signup', (req, res, next) => {
+    //req.body.password = hashPassword(req.body.password);
+    //console.log("Inside signup")
+    (new User({
+      username: req.body.username,
+      password: req.body.password
+    })).save()
+    .then(() => res.json({success: true}))
+  });
+
   /* router.post('/register', (req, res) => {
     axios.post('https://api.authy.com/protected/json/phones/verification/start', {
       api_key: process.env.TWILIO_API_KEY,

@@ -12,6 +12,7 @@ const momentActions = {
         store.setState({...store.state, highlight: newHighlight})
     },
     setImage: (store, newImage) => {
+        console.log(newImage.path)
         store.setState({...store.state, image: newImage})
     },
     setModal: (store, showModal) => {

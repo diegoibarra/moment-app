@@ -13,6 +13,10 @@ const momentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    color: {
+        type: String,
+        required:true
+    },
     image: { data: Buffer, contentType: String },
     user: {
         type: mongoose.Schema.ObjectId,
@@ -21,6 +25,6 @@ const momentSchema = new mongoose.Schema({
     },
 });
 
-const Moment = mongoose.model('Listing', momentSchema);
+const Moment = mongoose.model('Moment', momentSchema);
 
 module.exports = Moment;

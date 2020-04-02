@@ -1,29 +1,22 @@
 const router = require('express').Router();
+var fs = require('fs');
 
 module.exports = (Moment, User) => {
 
     router.post('/create-moment', (req, res) => {
         console.log("Creating a moment");
         console.log(req);
-    /* User.findById(req.body.user)
-    .then((listing) => (
-      (new Request({
-        host: listing.host,
-        listing: listing._id,
-        guest: req.user._id,
-        from: req.body.from,
-        to: req.body.to,
-      })).save()
-      .then(() => (
-        (new Notification({
-          user: listing.host,
-          message: `${req.user.name.fname} sent you a booking request!`,
-          category: 'Request',
-          timestamp: new Date(),
-        })).save()))
-    ))
+        let moment = new Moment({
+            timestamp: req.body.date,
+            highlight: req.body.highlight,
+            message: req.body.message,
+            color: req.body.color,
+            user: req.user._id,
+            //image: fs.readFileSync(req.body.image.src),
+        });
+    moment.save()
     .then(() => res.json({success: true}))
-    .catch(() => res.json({success: false})); */
+    .catch((err) => res.json({success: false, err: err}));
   });
 
   return router;

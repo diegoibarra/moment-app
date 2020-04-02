@@ -19,5 +19,11 @@ module.exports = (Moment, User) => {
     .catch((err) => res.json({success: false, err: err}));
   });
 
+  router.get('/moments', (req, res) => {
+    Moment.find({user: req.user._id})
+    .then((moments) => res.json({success: true, moments}))
+    .catch(() => res.json({success: false}));
+  });
+
   return router;
 }

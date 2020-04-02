@@ -6,6 +6,8 @@ import MomentCard from './MomentCard.js'
 import Container from '@material-ui/core/Container';
 import Typography from './components/Typography';
 
+import axios from 'axios';
+
 const styles = (theme) => ({
   root: {
     marginTop: theme.spacing(8),
@@ -84,9 +86,20 @@ const styles = (theme) => ({
   },
 });
 
+const getMoments = () => {
+    axios.get('/api/moments',)
+    .then(resp => {
+        console.log(resp)
+      if (resp.data.success) {
+          console.log("Successfully got all my moments")
+
+    } else console.log("Unable to get all my moments")
+    });
+}
+
 function MomentView(props) {
   const { classes } = props;
-
+  getMoments()
   var moments_object = props.moments_object
 
   return (

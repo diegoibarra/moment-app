@@ -64,7 +64,7 @@ const handleSubmit = (modalState, modalActions, props) => {
         .then(res => this.props.updateUser(res.data.user))*/
     } else console.log("Unable to create moment")//this.setState({failedLoginAlert: true});
     });
-    
+
     props.globalActions.addMoment({
         message: modalState.message,
         date: modalState.date,
@@ -73,7 +73,8 @@ const handleSubmit = (modalState, modalActions, props) => {
         image: modalState.image
     })
     modalActions.setColor('')
-    modalActions.setMessage(' ')
+    modalActions.setMessage('')
+    modalActions.setHighlight('')
     modalActions.setModal(false)
 }
 

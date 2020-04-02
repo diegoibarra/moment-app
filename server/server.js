@@ -8,8 +8,10 @@ const cors = require('cors');
 const LocalStrategy = require('passport-local').Strategy;
 const MongoStore = require('connect-mongo')(session);
 const User = require('./models/user');
+const Moment = require('./models/moment')
 
 const auth = require('./routes/auth');
+const routes = require('./routes/routes.js')
 
 
 mongoose.connection.on('connected', () => {
@@ -49,7 +51,7 @@ passport.use(new LocalStrategy((username, password, done) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
-//app.use('/api', routes(City, Hotel));
+app.use('/api', routes(Moment, User));
 app.use('/api', auth(passport, axios, User));
 //app.use('/api', protected(User, Hotel, Listing));
 

@@ -13,7 +13,8 @@ import './App.css';
 
 const initialState = {
   moments: {},
-  signedIn: false
+  signedIn: false,
+  user_id: null
 };
 
 const useGlobal = globalHook(React, initialState, actions);

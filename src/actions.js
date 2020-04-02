@@ -12,6 +12,9 @@ const actions = {
     },
     updateSignIn: (store, newStatus) => {
         store.setState({...store.state, signedIn: newStatus})
+    },
+    updateUserId: (store, newId) => {
+        store.setState({...store.state, userId: newId})
     }
 }
 

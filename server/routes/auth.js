@@ -19,8 +19,9 @@ module.exports = (passport, axios, User) => {
       console.log(user)
       //if (!user.verified) return res.json({success: false, msg: 'verify'})
       req.logIn(user, (err) => {
+          console.log(user)
         if (err) return res.json({success: false});
-        return res.json({success: true});
+        return res.json({user: user, success: true});
       });
     })(req, res, next);
   });

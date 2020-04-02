@@ -4,6 +4,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { makeStyles } from "@material-ui/core/styles";
 import momentActions from './momentActions.js'
 import globalHook from 'use-global-hook';
+import axios from 'axios';
 import DatePicker from './DatePicker.js';
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
@@ -47,6 +48,23 @@ const initialState = {
 };
 
 const handleSubmit = (modalState, modalActions, props) => {
+    axios.post('/api/create-moment', {
+        message: modalState.message,
+        date: modalState.date,
+        highlight: modalState.highlight,
+        color: bgColors[modalState.color],
+        image: modalState.image
+    })
+    .then(resp => {
+        console.log(resp)
+      if (resp.data.success) {
+          console.log("Successfully created a new moment")
+
+        /*axios.get('/api/account')
+        .then(res => this.props.updateUser(res.data.user))*/
+    } else console.log("Unable to create moment")//this.setState({failedLoginAlert: true});
+    });
+    
     props.globalActions.addMoment({
         message: modalState.message,
         date: modalState.date,

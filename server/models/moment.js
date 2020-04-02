@@ -13,10 +13,7 @@ const momentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    image: {
-        type: Image,
-        required: false
-    },
+    image: { data: Buffer, contentType: String },
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',

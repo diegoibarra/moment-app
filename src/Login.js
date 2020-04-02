@@ -38,6 +38,8 @@ const handleSignIn = (globalState, globalActions) => {
       if (resp.data.success) {
           console.log("Able to sign user in!")
         globalActions.updateSignIn(globalState, resp.data.success);
+        console.log("This is: " + resp.data.user._id)
+        globalActions.updateUserId(globalState, resp.data.user._id)
         /*axios.get('/api/account')
         .then(res => this.props.updateUser(res.data.user))*/
     } else console.log("Unable to sign user in")//this.setState({failedLoginAlert: true});
